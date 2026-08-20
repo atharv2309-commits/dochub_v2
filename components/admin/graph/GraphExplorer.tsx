@@ -1,8 +1,8 @@
 'use client'
 
 import { useMemo, useState, useTransition } from 'react'
-import { Network, List, RefreshCw, Plus } from 'lucide-react'
-import { createEntity, triggerGraphSync } from '@/app/(admin)/admin/graph/actions'
+import { Network, List, RefreshCw, Plus, Sparkles } from 'lucide-react'
+import { createEntity, triggerGraphSync, suggestEntityLinksForProject } from '@/app/(admin)/admin/graph/actions'
 import { ContentGraphView } from './ContentGraphView'
 import { EntityChecklist } from './EntityChecklist'
 import type { GraphPageNode, GraphEntityNode, GraphEdge, ProjectSummary } from './types'
@@ -25,6 +25,7 @@ export function GraphExplorer({
   const [description, setDescription] = useState('')
   const [pending, startTransition] = useTransition()
   const [syncPending, startSync] = useTransition()
+  const [suggestPending, startSuggest] = useTransition()
 
   const currentSlug = projects.find((pr) => pr.id === projectId)?.slug
   const ownPageIds = useMemo(() => new Set(pageNodes.filter((p) => p.projectSlug === currentSlug).map((p) => p.id)), [pageNodes, currentSlug])
@@ -79,6 +80,15 @@ export function GraphExplorer({
           <h1 className="text-2xl font-bold tracking-tight">Content Graph</h1>
         </div>
         <div className="flex items-center gap-2">
+          <button
+            onClick={() => startSuggest(() => suggestEntityLinksForProject(projectId))}
+            disabled={suggestPending || scopedEntities.length === 0}
+            title={scopedEntities.length === 0 ? 'Add an entity first' : 'Ask Gemini which pages relate to each entity'}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs border border-border text-muted-foreground hover:text-foreground hover:bg-secondary/60 disabled:opacity-60 transition-colors"
+          >
+            <Sparkles className={`w-3.5 h-3.5 ${suggestPending ? 'animate-pulse' : ''}`} />
+            {suggestPending ? 'Suggesting…' : 'Suggest links'}
+          </button>
           <button
             onClick={() => startSync(() => triggerGraphSync())}
             disabled={syncPending}

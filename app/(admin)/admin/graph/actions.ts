@@ -150,11 +150,22 @@ export async function suggestEntityLinksForProject(projectId: string) {
     .eq('kind', 'document')
     .eq('status', 'published')
   if (pages?.length) {
-    await supabase.from('entity_suggest_jobs').upsert(
-      pages.map((p) => ({ page_id: p.id })),
-      { onConflict: 'page_id', ignoreDuplicates: true }
-    )
-    await kickWorker('/api/graph/suggest-worker')
+    // entity_suggest_jobs_active_uniq is a PARTIAL unique index (page_id
+    // WHERE status IN pending/running) — supabase-js's upsert can't target a
+    // partial index (Postgres needs a matching WHERE in the conflict clause,
+    // which the generated SQL omits), so skip pages that already have an
+    // active job instead of relying on onConflict.
+    const { data: active } = await supabase
+      .from('entity_suggest_jobs')
+      .select('page_id')
+      .in('page_id', pages.map((p) => p.id))
+      .in('status', ['pending', 'running'])
+    const activeIds = new Set((active ?? []).map((j) => j.page_id))
+    const toEnqueue = pages.filter((p) => !activeIds.has(p.id))
+    if (toEnqueue.length) {
+      await supabase.from('entity_suggest_jobs').insert(toEnqueue.map((p) => ({ page_id: p.id })))
+      await kickWorker('/api/graph/suggest-worker')
+    }
   }
   revalidatePath('/admin/graph')
 }

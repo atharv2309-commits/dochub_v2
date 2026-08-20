@@ -172,6 +172,44 @@ export type Database = {
           },
         ]
       }
+      entity_suggest_jobs: {
+        Row: {
+          attempts: number
+          created_at: string
+          error: string | null
+          id: string
+          page_id: string
+          status: Database["public"]["Enums"]["entity_suggest_job_status"]
+          updated_at: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          error?: string | null
+          id?: string
+          page_id: string
+          status?: Database["public"]["Enums"]["entity_suggest_job_status"]
+          updated_at?: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          error?: string | null
+          id?: string
+          page_id?: string
+          status?: Database["public"]["Enums"]["entity_suggest_job_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entity_suggest_jobs_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       github_sync_events: {
         Row: {
           commit_sha: string
@@ -945,6 +983,7 @@ export type Database = {
       entity_audit_job_status: "pending" | "running" | "done" | "failed"
       entity_link_kind: "text" | "media" | "both"
       entity_link_status: "ok" | "stale" | "gap"
+      entity_suggest_job_status: "pending" | "running" | "done" | "failed"
       github_sync_event_status: "pending" | "synced" | "dismissed"
       graph_extract_job_status: "pending" | "running" | "done" | "failed"
       page_event_type:
@@ -1095,6 +1134,7 @@ export const Constants = {
       entity_audit_job_status: ["pending", "running", "done", "failed"],
       entity_link_kind: ["text", "media", "both"],
       entity_link_status: ["ok", "stale", "gap"],
+      entity_suggest_job_status: ["pending", "running", "done", "failed"],
       github_sync_event_status: ["pending", "synced", "dismissed"],
       graph_extract_job_status: ["pending", "running", "done", "failed"],
       page_event_type: [

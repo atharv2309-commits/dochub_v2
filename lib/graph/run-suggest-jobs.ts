@@ -1,6 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { suggestEntityLinks } from './suggest'
 import { extractPageIntro } from './pageSummary'
+import type { EntityLinkKind } from '@/types/db'
 
 const MAX_ATTEMPTS = 3
 const STALE_RUNNING_MS = 5 * 60_000
@@ -47,7 +48,7 @@ async function processJob(
     const entityIdByName = new Map(candidates.map((e) => [e.name, e.id]))
     const rows = matches
       .map((m) => ({ entity_id: entityIdByName.get(m.entityName), kind: m.kind, reason: m.reason }))
-      .filter((r): r is { entity_id: string; kind: string; reason: string } => !!r.entity_id)
+      .filter((r): r is { entity_id: string; kind: EntityLinkKind; reason: string } => !!r.entity_id)
 
     if (rows.length) {
       await db.from('page_entity_links').upsert(
