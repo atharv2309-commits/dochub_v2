@@ -13,7 +13,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.5"
+    PostgrestVersion: "14.15"
   }
   graphql_public: {
     Tables: {
@@ -42,6 +42,445 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics_insights: {
+        Row: {
+          created_at: string
+          id: string
+          period_end: string
+          period_start: string
+          project_id: string
+          summary: Json
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          period_end: string
+          period_start: string
+          project_id: string
+          summary: Json
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          period_end?: string
+          period_start?: string
+          project_id?: string
+          summary?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_insights_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      content_entities: {
+        Row: {
+          change_note: string | null
+          changed_at: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          project_id: string
+          reference_image_url: string | null
+          updated_at: string
+          version_tag: string | null
+        }
+        Insert: {
+          change_note?: string | null
+          changed_at?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          project_id: string
+          reference_image_url?: string | null
+          updated_at?: string
+          version_tag?: string | null
+        }
+        Update: {
+          change_note?: string | null
+          changed_at?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          project_id?: string
+          reference_image_url?: string | null
+          updated_at?: string
+          version_tag?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_entities_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      entity_audit_jobs: {
+        Row: {
+          attempts: number
+          created_at: string
+          entity_id: string
+          error: string | null
+          id: string
+          page_id: string
+          status: Database["public"]["Enums"]["entity_audit_job_status"]
+          updated_at: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          entity_id: string
+          error?: string | null
+          id?: string
+          page_id: string
+          status?: Database["public"]["Enums"]["entity_audit_job_status"]
+          updated_at?: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          entity_id?: string
+          error?: string | null
+          id?: string
+          page_id?: string
+          status?: Database["public"]["Enums"]["entity_audit_job_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entity_audit_jobs_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: false
+            referencedRelation: "content_entities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entity_audit_jobs_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      github_sync_events: {
+        Row: {
+          commit_sha: string
+          detected_at: string
+          id: string
+          project_id: string
+          status: Database["public"]["Enums"]["github_sync_event_status"]
+          summary: string | null
+          synced_at: string | null
+          synced_by: string | null
+        }
+        Insert: {
+          commit_sha: string
+          detected_at?: string
+          id?: string
+          project_id: string
+          status?: Database["public"]["Enums"]["github_sync_event_status"]
+          summary?: string | null
+          synced_at?: string | null
+          synced_by?: string | null
+        }
+        Update: {
+          commit_sha?: string
+          detected_at?: string
+          id?: string
+          project_id?: string
+          status?: Database["public"]["Enums"]["github_sync_event_status"]
+          summary?: string | null
+          synced_at?: string | null
+          synced_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "github_sync_events_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      graph_extract_jobs: {
+        Row: {
+          attempts: number
+          created_at: string
+          error: string | null
+          id: string
+          page_id: string
+          status: Database["public"]["Enums"]["graph_extract_job_status"]
+          updated_at: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          error?: string | null
+          id?: string
+          page_id: string
+          status?: Database["public"]["Enums"]["graph_extract_job_status"]
+          updated_at?: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          error?: string | null
+          id?: string
+          page_id?: string
+          status?: Database["public"]["Enums"]["graph_extract_job_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "graph_extract_jobs_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mcp_api_keys: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          id: string
+          key_hash: string
+          key_prefix: string | null
+          label: string | null
+          last_used_at: string | null
+          revoked_at: string | null
+          scopes: string[]
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key_hash: string
+          key_prefix?: string | null
+          label?: string | null
+          last_used_at?: string | null
+          revoked_at?: string | null
+          scopes?: string[]
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          key_hash?: string
+          key_prefix?: string | null
+          label?: string | null
+          last_used_at?: string | null
+          revoked_at?: string | null
+          scopes?: string[]
+        }
+        Relationships: []
+      }
+      mcp_audit_log: {
+        Row: {
+          args: Json | null
+          created_at: string
+          error: string | null
+          id: string
+          key_id: string | null
+          page_path: string | null
+          project_slug: string | null
+          status: string
+          tool: string
+        }
+        Insert: {
+          args?: Json | null
+          created_at?: string
+          error?: string | null
+          id?: string
+          key_id?: string | null
+          page_path?: string | null
+          project_slug?: string | null
+          status?: string
+          tool: string
+        }
+        Update: {
+          args?: Json | null
+          created_at?: string
+          error?: string | null
+          id?: string
+          key_id?: string | null
+          page_path?: string | null
+          project_slug?: string | null
+          status?: string
+          tool?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mcp_audit_log_key_id_fkey"
+            columns: ["key_id"]
+            isOneToOne: false
+            referencedRelation: "mcp_api_keys"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      page_entity_links: {
+        Row: {
+          block_path: string | null
+          created_at: string
+          entity_id: string
+          excerpt: string | null
+          id: string
+          kind: Database["public"]["Enums"]["entity_link_kind"]
+          note: string | null
+          page_id: string
+          reviewed_at: string
+          source: string
+          status: Database["public"]["Enums"]["entity_link_status"]
+          updated_at: string
+        }
+        Insert: {
+          block_path?: string | null
+          created_at?: string
+          entity_id: string
+          excerpt?: string | null
+          id?: string
+          kind?: Database["public"]["Enums"]["entity_link_kind"]
+          note?: string | null
+          page_id: string
+          reviewed_at?: string
+          source?: string
+          status?: Database["public"]["Enums"]["entity_link_status"]
+          updated_at?: string
+        }
+        Update: {
+          block_path?: string | null
+          created_at?: string
+          entity_id?: string
+          excerpt?: string | null
+          id?: string
+          kind?: Database["public"]["Enums"]["entity_link_kind"]
+          note?: string | null
+          page_id?: string
+          reviewed_at?: string
+          source?: string
+          status?: Database["public"]["Enums"]["entity_link_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "page_entity_links_entity_id_fkey"
+            columns: ["entity_id"]
+            isOneToOne: false
+            referencedRelation: "content_entities"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "page_entity_links_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      page_events: {
+        Row: {
+          comment: string | null
+          created_at: string
+          event_type: Database["public"]["Enums"]["page_event_type"]
+          helpful: boolean | null
+          id: string
+          locale: string | null
+          page_id: string | null
+          project_id: string
+          query_text: string | null
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          event_type: Database["public"]["Enums"]["page_event_type"]
+          helpful?: boolean | null
+          id?: string
+          locale?: string | null
+          page_id?: string | null
+          project_id: string
+          query_text?: string | null
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          event_type?: Database["public"]["Enums"]["page_event_type"]
+          helpful?: boolean | null
+          id?: string
+          locale?: string | null
+          page_id?: string | null
+          project_id?: string
+          query_text?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "page_events_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "page_events_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      page_links: {
+        Row: {
+          created_at: string
+          from_page_id: string
+          id: string
+          link_text: string | null
+          to_page_id: string
+        }
+        Insert: {
+          created_at?: string
+          from_page_id: string
+          id?: string
+          link_text?: string | null
+          to_page_id: string
+        }
+        Update: {
+          created_at?: string
+          from_page_id?: string
+          id?: string
+          link_text?: string | null
+          to_page_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "page_links_from_page_id_fkey"
+            columns: ["from_page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "page_links_to_page_id_fkey"
+            columns: ["to_page_id"]
+            isOneToOne: false
+            referencedRelation: "pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       page_translations: {
         Row: {
           content: Json | null
@@ -168,6 +607,7 @@ export type Database = {
           draft_description: string | null
           draft_title: string | null
           draft_updated_at: string | null
+          github_path: string | null
           hidden: boolean
           icon: string | null
           id: string
@@ -200,6 +640,7 @@ export type Database = {
           draft_description?: string | null
           draft_title?: string | null
           draft_updated_at?: string | null
+          github_path?: string | null
           hidden?: boolean
           icon?: string | null
           id?: string
@@ -232,6 +673,7 @@ export type Database = {
           draft_description?: string | null
           draft_title?: string | null
           draft_updated_at?: string | null
+          github_path?: string | null
           hidden?: boolean
           icon?: string | null
           id?: string
@@ -277,6 +719,9 @@ export type Database = {
           custom_domain: string | null
           description: string | null
           enabled_locales: string[]
+          github_branch: string
+          github_last_synced_sha: string | null
+          github_repo: string | null
           icon: string | null
           id: string
           name: string
@@ -292,6 +737,9 @@ export type Database = {
           custom_domain?: string | null
           description?: string | null
           enabled_locales?: string[]
+          github_branch?: string
+          github_last_synced_sha?: string | null
+          github_repo?: string | null
           icon?: string | null
           id?: string
           name: string
@@ -307,6 +755,9 @@ export type Database = {
           custom_domain?: string | null
           description?: string | null
           enabled_locales?: string[]
+          github_branch?: string
+          github_last_synced_sha?: string | null
+          github_repo?: string | null
           icon?: string | null
           id?: string
           name?: string
@@ -315,6 +766,30 @@ export type Database = {
           updated_at?: string
           user_id?: string
           visibility?: string
+        }
+        Relationships: []
+      }
+      translation_glossary: {
+        Row: {
+          created_at: string
+          id: string
+          notes: string | null
+          term: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          term: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          notes?: string | null
+          term?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -404,6 +879,35 @@ export type Database = {
         Args: { p_page_id: string }
         Returns: undefined
       }
+      mcp_create_page_version: {
+        Args: { p_change_summary?: string; p_page_id: string }
+        Returns: string
+      }
+      mcp_publish_page: { Args: { p_page_id: string }; Returns: undefined }
+      mcp_rename_page: {
+        Args: { p_page_id: string; p_title: string }
+        Returns: string
+      }
+      mcp_restore_page_version: {
+        Args: { p_version_id: string }
+        Returns: string
+      }
+      mcp_search_pages: {
+        Args: {
+          p_limit?: number
+          p_project_slug?: string
+          p_query: string
+          p_tag?: string
+        }
+        Returns: {
+          description: string
+          path: string
+          project_slug: string
+          rank: number
+          snippet: string
+          title: string
+        }[]
+      }
       publish_page: { Args: { p_page_id: string }; Returns: undefined }
       rename_page: {
         Args: { p_page_id: string; p_title: string }
@@ -438,6 +942,21 @@ export type Database = {
     }
     Enums: {
       cover_style: "full" | "content"
+      entity_audit_job_status: "pending" | "running" | "done" | "failed"
+      entity_link_kind: "text" | "media" | "both"
+      entity_link_status: "ok" | "stale" | "gap"
+      github_sync_event_status: "pending" | "synced" | "dismissed"
+      graph_extract_job_status: "pending" | "running" | "done" | "failed"
+      page_event_type:
+        | "search_query"
+        | "search_zero_result"
+        | "pdf_download"
+        | "copy_page"
+        | "view_markdown"
+        | "open_chatgpt"
+        | "open_claude"
+        | "mcp_connect_click"
+        | "feedback"
       page_kind: "document" | "group" | "link"
       page_status: "draft" | "published"
       translation_job_status: "pending" | "running" | "done" | "failed"
@@ -573,6 +1092,22 @@ export const Constants = {
   public: {
     Enums: {
       cover_style: ["full", "content"],
+      entity_audit_job_status: ["pending", "running", "done", "failed"],
+      entity_link_kind: ["text", "media", "both"],
+      entity_link_status: ["ok", "stale", "gap"],
+      github_sync_event_status: ["pending", "synced", "dismissed"],
+      graph_extract_job_status: ["pending", "running", "done", "failed"],
+      page_event_type: [
+        "search_query",
+        "search_zero_result",
+        "pdf_download",
+        "copy_page",
+        "view_markdown",
+        "open_chatgpt",
+        "open_claude",
+        "mcp_connect_click",
+        "feedback",
+      ],
       page_kind: ["document", "group", "link"],
       page_status: ["draft", "published"],
       translation_job_status: ["pending", "running", "done", "failed"],

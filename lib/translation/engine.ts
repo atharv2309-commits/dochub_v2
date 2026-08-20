@@ -17,6 +17,9 @@ export interface TranslationEngine {
    * Translate a batch of independent text segments, preserving order and count:
    * output[i] is the translation of input[i]. Implementations should handle
    * their own batching/throttling/retry internally. Empty strings pass through.
+   * A null element means that one segment could not be translated (e.g. a
+   * provider partial-failure) — callers fall back to the source text for it
+   * rather than failing the whole batch.
    */
-  translateBatch(texts: string[], opts: TranslateOptions): Promise<string[]>
+  translateBatch(texts: string[], opts: TranslateOptions): Promise<(string | null)[]>
 }

@@ -254,3 +254,35 @@ $$;
 
 REVOKE ALL ON FUNCTION set_translation_reviewed(uuid, text, boolean) FROM public, anon;
 GRANT EXECUTE ON FUNCTION set_translation_reviewed(uuid, text, boolean) TO authenticated;
+
+-- ──────────────────────────────────────────────────────────────────────────────
+-- Do-not-translate glossary
+--
+-- Platform UI terms authors reference in prose (e.g. "Operations Dashboard")
+-- that must never be machine-translated — the reader needs the exact label
+-- they'll see in the actual product UI, not a translated approximation.
+-- Self-serve: admins manage this list from /admin/translations, no code
+-- change needed. Applied in lib/translation/translate-page.ts, engine-agnostic
+-- (placeholder substitution around whichever TranslationEngine is active), so
+-- it protects terms regardless of which engine is configured.
+-- ──────────────────────────────────────────────────────────────────────────────
+CREATE TABLE translation_glossary (
+  id         uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  term       text        NOT NULL UNIQUE,
+  notes      text,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TRIGGER translation_glossary_updated_at
+  BEFORE UPDATE ON translation_glossary
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+ALTER TABLE translation_glossary ENABLE ROW LEVEL SECURITY;
+
+-- Single-org install (same model as mcp_api_keys) — any authenticated admin
+-- manages the shared glossary; no per-project/per-owner scoping needed here.
+CREATE POLICY "translation_glossary_authenticated_all" ON translation_glossary
+  FOR ALL TO authenticated
+  USING (true)
+  WITH CHECK (true);

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
+import { ThemeToggle } from '@/components/docs/ThemeToggle'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,13 +12,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { LogOut, LayoutGrid, BookText, Settings, FileEdit, Languages, Sparkles } from 'lucide-react'
+import { LogOut, LayoutGrid, BookText, Settings, FileEdit, Languages, Sparkles, BarChart3 } from 'lucide-react'
 
 const NAV = [
   { label: 'Overview', href: '/admin', icon: LayoutGrid },
   { label: 'Projects', href: '/admin', icon: BookText, match: '/admin/projects' },
   { label: 'Drafts', href: '/admin/drafts', icon: FileEdit, match: '/admin/drafts' },
   { label: 'Translations', href: '/admin/translations', icon: Languages, match: '/admin/translations' },
+  { label: 'Analytics', href: '/admin/analytics', icon: BarChart3, match: '/admin/analytics' },
   { label: 'MCP', href: '/admin/mcp', icon: Sparkles, match: '/admin/mcp' },
 ]
 
@@ -61,6 +63,8 @@ export function AdminHeader({ email }: { email: string }) {
       </nav>
 
       <div className="flex-1" />
+
+      <ThemeToggle />
 
       {/* User menu */}
       <DropdownMenu>

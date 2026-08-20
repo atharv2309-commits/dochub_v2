@@ -4,11 +4,12 @@ import { getPublicProject, getPublicPages, getPublicTranslation, getPublicTitles
 import { BlockRenderer } from '@/components/docs/BlockRenderer'
 import { TableOfContents } from '@/components/docs/TableOfContents'
 import { PageNavigation } from '@/components/docs/PageNavigation'
-import { DownloadPdfButton } from '@/components/docs/DownloadPdfButton'
+import { PageActionsMenu } from '@/components/docs/PageActionsMenu'
+import { PageFeedback } from '@/components/docs/PageFeedback'
 import { TranslationNotice } from '@/components/docs/TranslationNotice'
 import { ChevronRight } from 'lucide-react'
 import type { Metadata } from 'next'
-import { SITE_URL } from '@/lib/site'
+import { siteUrlForProject } from '@/lib/site'
 import { LOCALES, SOURCE_LOCALE } from '@/lib/i18n/config'
 import { localizePage } from '@/lib/i18n/load-translation'
 import { getDictionary } from '@/lib/i18n/dictionary'
@@ -37,17 +38,18 @@ export async function generateMetadata({
     no_index: sourcePage.no_index,
   }
 
+  const siteUrl = siteUrlForProject(projectSlug)
   const title = `${page.title} — ${project.name}`
-  const url = `${SITE_URL}/${lang}/docs/${projectSlug}/${path}`
+  const url = `${siteUrl}/${lang}/docs/${projectSlug}/${path}`
   const images = page.cover_image_url ? [{ url: page.cover_image_url }] : undefined
 
   // hreflang: tell search engines about every locale variant of this page, plus
   // an x-default pointing at the source language.
   const languages: Record<string, string> = {}
   for (const l of LOCALES) {
-    languages[l.code] = `${SITE_URL}/${l.code}/docs/${projectSlug}/${path}`
+    languages[l.code] = `${siteUrl}/${l.code}/docs/${projectSlug}/${path}`
   }
-  languages['x-default'] = `${SITE_URL}/${SOURCE_LOCALE}/docs/${projectSlug}/${path}`
+  languages['x-default'] = `${siteUrl}/${SOURCE_LOCALE}/docs/${projectSlug}/${path}`
 
   return {
     title,
@@ -182,7 +184,7 @@ export default async function DocPage({
               </span>
             ))}
           </nav>
-          <DownloadPdfButton projectSlug={projectSlug} path={path} />
+          <PageActionsMenu projectSlug={projectSlug} projectId={project.id} pageId={page.id} path={path} lang={lang} />
         </div>
 
         {/* Translation status notice (only when not an up-to-date translation) */}
@@ -213,6 +215,9 @@ export default async function DocPage({
         <div className="docs-content prose-flytbase">
           <BlockRenderer blocks={content} emptyLabel={dict.content.empty} />
         </div>
+
+        {/* Feedback */}
+        <PageFeedback projectId={project.id} pageId={page.id} locale={lang} />
 
         {/* Prev/Next navigation */}
         <PageNavigation

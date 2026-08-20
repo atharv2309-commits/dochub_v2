@@ -77,7 +77,7 @@ export function LanguageSwitcher({
       </button>
 
       {open && (
-        <div className="absolute right-0 z-50 mt-1 max-h-80 w-44 overflow-y-auto rounded-lg border border-border bg-background py-1 shadow-lg">
+        <div className="absolute right-0 z-50 mt-1 max-h-80 w-44 overflow-y-auto border border-border bg-background py-1">
           {options.map((l) => {
             const active = l.code === current
             const pending = l.code === pendingLocale

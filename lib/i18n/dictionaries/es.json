@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "onThisPage": "En esta página",
+    "toggleNavigation": "Alternar navegación",
+    "previous": "Previa",
+    "next": "Próxima"
+  },
+  "sidebar": {
+    "collapse": "Contraer barra lateral",
+    "expand": "Expandir barra lateral",
+    "noPages": "Aún no hay páginas.",
+    "poweredBy": "Desarrollado por DocHub"
+  },
+  "search": {
+    "shortPlaceholder": "Buscar…",
+    "placeholder": "Busque documentos o haga una pregunta...",
+    "askAi": "Pregúntale a la IA",
+    "startTyping": "Empieza a escribir para buscar",
+    "backToSearch": "Volver a buscar",
+    "aiAnswer": "respuesta de IA",
+    "error": "Algo salió mal. Por favor inténtalo de nuevo.",
+    "followupPlaceholder": "Solicite un seguimiento...",
+    "stop": "Detener",
+    "send": "Enviar"
+  },
+  "theme": {
+    "toLight": "Cambiar al modo de luz",
+    "toDark": "Cambiar al modo oscuro"
+  },
+  "language": {
+    "change": "Cambiar idioma",
+    "switching": "Traspuesta…"
+  },
+  "code": {
+    "copy": "Copiar código",
+    "copied": "Copiada"
+  },
+  "pdf": {
+    "label": "Descargar PDF",
+    "preparing": "Preparante…"
+  },
+  "content": {
+    "empty": "Esta página aún no tiene contenido."
+  },
+  "translation": {
+    "untranslated": "Esta página aún no ha sido traducida y se muestra el original en inglés.",
+    "outdated": "Esta traducción está desactualizada y muestra la última versión traducida mientras se actualiza."
+  },
+  "mcp": {
+    "copy": "Copiar",
+    "ariaLabel": "Conectar una agente de inteligencia artificial",
+    "live": "Vivir",
+    "title": "Conectar una agente de inteligencia artificial",
+    "description": "Deje que las herramientas de inteligencia artificial como Claude, Cursor y VS Code lean estos documentos directamente.",
+    "connectInSeconds": "Conéctate en segundos",
+    "footer": "Acceso de sólo lectura a la documentación publicada.",
+    "toolSearchLabel": "Buscar",
+    "toolSearchDesc": "Búsqueda de texto completo en documentos publicados.",
+    "toolReadLabel": "Leer",
+    "toolReadDesc": "Obtenga el contenido completo de una página como Markdown.",
+    "toolBrowseLabel": "Navegar",
+    "toolBrowseDesc": "Muestra el árbol de páginas de un proyecto.",
+    "hintClaudeCode": "Agregue este servidor MCP a Claude Code.",
+    "hintClaudeDesktop": "Agregue este servidor MCP a la configuración de Claude Desktop.",
+    "hintCursor": "Agregue este servidor MCP a la configuración del Cursor.",
+    "hintVscode": "Agregue este servidor MCP a la configuración de VS Code.",
+    "hintUrl": "Utilice esta URL con cualquier cliente compatible con MCP."
+  }
+}

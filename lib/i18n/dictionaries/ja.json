@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "onThisPage": "このページでは",
+    "toggleNavigation": "ナビゲーションを切り替え",
+    "previous": "前の",
+    "next": "次"
+  },
+  "sidebar": {
+    "collapse": "サイドバーを折りたたむ",
+    "expand": "サイドバーを展開する",
+    "noPages": "まだページがありません。",
+    "poweredBy": "DocHub による提供"
+  },
+  "search": {
+    "shortPlaceholder": "検索…",
+    "placeholder": "ドキュメントを検索したり、質問したり…",
+    "askAi": "AIに聞く",
+    "startTyping": "入力を開始して検索します",
+    "backToSearch": "検索に戻る",
+    "aiAnswer": "AIの答え",
+    "error": "何か問題が発生しました。 もう一度試してください。",
+    "followupPlaceholder": "フォローアップを依頼してください…",
+    "stop": "停止",
+    "send": "送信"
+  },
+  "theme": {
+    "toLight": "ライトモードに切り替える",
+    "toDark": "ダークモードに切り替える"
+  },
+  "language": {
+    "change": "言語を変更する",
+    "switching": "切り替え中…"
+  },
+  "code": {
+    "copy": "コードをコピーする",
+    "copied": "コピーされました"
+  },
+  "pdf": {
+    "label": "PDFをダウンロード",
+    "preparing": "準備中…"
+  },
+  "content": {
+    "empty": "このページにはまだコンテンツがありません。"
+  },
+  "translation": {
+    "untranslated": "このページはまだ翻訳されていません。英語のオリジナルを示しています。",
+    "outdated": "この翻訳は最新ではありません。更新中は最新の翻訳バージョンが表示されます。"
+  },
+  "mcp": {
+    "copy": "コピー",
+    "ariaLabel": "AIエージェントを接続する",
+    "live": "ライブ",
+    "title": "AIエージェントを接続する",
+    "description": "Claude、Cursor、VS Code などの AI ツールにこれらのドキュメントを直接読み取らせます。",
+    "connectInSeconds": "数秒で接続",
+    "footer": "公開されたドキュメントへの読み取り専用アクセス。",
+    "toolSearchLabel": "検索",
+    "toolSearchDesc": "公開されたドキュメント全体の全文検索。",
+    "toolReadLabel": "読む",
+    "toolReadDesc": "ページの完全なコンテンツを Markdown として取得します。",
+    "toolBrowseLabel": "ブラウズ",
+    "toolBrowseDesc": "プロジェクトのページ ツリーを一覧表示します。",
+    "hintClaudeCode": "この MCP サーバーをクロード コードに追加します。",
+    "hintClaudeDesktop": "この MCP サーバーを Claude Desktop の構成に追加します。",
+    "hintCursor": "この MCP サーバーを Cursor の構成に追加します。",
+    "hintVscode": "この MCP サーバーを VS Code の構成に追加します。",
+    "hintUrl": "この URL は MCP 互換クライアントで使用します。"
+  }
+}

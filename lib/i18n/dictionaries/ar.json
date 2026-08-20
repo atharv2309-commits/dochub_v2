@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "onThisPage": "في هذه الصفحة",
+    "toggleNavigation": "تبديل التنقل",
+    "previous": "سابق",
+    "next": "التالي"
+  },
+  "sidebar": {
+    "collapse": "طي الشريط الجانبي",
+    "expand": "قم بتوسيع الشريط الجانبي",
+    "noPages": "لا توجد صفحات بعد.",
+    "poweredBy": "مدعوم من دوكهب"
+  },
+  "search": {
+    "shortPlaceholder": "يبحث…",
+    "placeholder": "ابحث في المستندات أو اطرح سؤالاً...",
+    "askAi": "اسأل الذكاء الاصطناعي",
+    "startTyping": "ابدأ الكتابة للبحث",
+    "backToSearch": "العودة إلى البحث",
+    "aiAnswer": "إجابة الذكاء الاصطناعي",
+    "error": "حدث خطأ ما. يرجى المحاولة مرة أخرى.",
+    "followupPlaceholder": "اسأل المتابعة...",
+    "stop": "قف",
+    "send": "يرسل"
+  },
+  "theme": {
+    "toLight": "التبديل إلى وضع الضوء",
+    "toDark": "التبديل إلى الوضع المظلم"
+  },
+  "language": {
+    "change": "تغيير اللغة",
+    "switching": "التبديل…"
+  },
+  "code": {
+    "copy": "نسخ الرمز",
+    "copied": "منقول"
+  },
+  "pdf": {
+    "label": "تحميل قوات الدفاع الشعبي",
+    "preparing": "جارٍ التحضير…"
+  },
+  "content": {
+    "empty": "هذه الصفحة ليس لديها محتوى حتى الآن."
+  },
+  "translation": {
+    "untranslated": "لم تتم ترجمة هذه الصفحة بعد — حيث تظهر النسخة الأصلية باللغة الإنجليزية.",
+    "outdated": "هذه الترجمة قديمة — تظهر آخر نسخة مترجمة أثناء تحديثها."
+  },
+  "mcp": {
+    "copy": "ينسخ",
+    "ariaLabel": "قم بتوصيل وكيل الذكاء الاصطناعي",
+    "live": "يعيش",
+    "title": "قم بتوصيل وكيل الذكاء الاصطناعي",
+    "description": "اسمح لأدوات الذكاء الاصطناعي مثل Claude وCursor وVS Code بقراءة هذه المستندات مباشرة.",
+    "connectInSeconds": "الاتصال في ثوان",
+    "footer": "حق الوصول للقراءة فقط إلى الوثائق المنشورة.",
+    "toolSearchLabel": "يبحث",
+    "toolSearchDesc": "البحث عن النص الكامل عبر المستندات المنشورة.",
+    "toolReadLabel": "يقرأ",
+    "toolReadDesc": "جلب المحتوى الكامل للصفحة كـ Markdown.",
+    "toolBrowseLabel": "تصفح",
+    "toolBrowseDesc": "قم بإدراج شجرة صفحات المشروع.",
+    "hintClaudeCode": "أضف خادم MCP هذا إلى Claude Code.",
+    "hintClaudeDesktop": "أضف خادم MCP هذا إلى تكوين Claude Desktop.",
+    "hintCursor": "أضف خادم MCP هذا إلى تكوين المؤشر.",
+    "hintVscode": "أضف خادم MCP هذا إلى تكوين VS Code.",
+    "hintUrl": "استخدم عنوان URL هذا مع أي عميل متوافق مع MCP."
+  }
+}

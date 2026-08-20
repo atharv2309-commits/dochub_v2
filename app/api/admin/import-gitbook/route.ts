@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { markdownToBlocks } from '@/lib/import/markdownToBlocks'
+import { optimizeImage } from '@/lib/import/optimizeImage'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 export const maxDuration = 300
@@ -74,14 +75,18 @@ async function hostImage(
   try {
     const res = await fetch(file.downloadURL)
     if (!res.ok) return null
-    const buf = new Uint8Array(await res.arrayBuffer())
-    if (buf.byteLength > MAX_HOST_BYTES) return null
+    const raw = new Uint8Array(await res.arrayBuffer())
+    if (raw.byteLength > MAX_HOST_BYTES) return null
     const extFromName = file.name.includes('.') ? file.name.split('.').pop() : undefined
     const ext = (extFromName ?? file.contentType.split('/').pop() ?? 'png').toLowerCase().replace(/[^a-z0-9]/g, '')
+    const buf = await optimizeImage(raw, ext)
     const path = `imported/${projectId}/${fileId}.${ext}`
     const { error } = await supabase.storage
       .from('images')
-      .upload(path, buf, { contentType: file.contentType, upsert: true })
+      // Content-addressed path (GitBook's own file id) is immutable — cache
+      // aggressively so repeat fetches (PDF export, every viewer) don't keep
+      // re-hitting origin egress on the Supabase default (1hr) ttl.
+      .upload(path, buf, { contentType: file.contentType, upsert: true, cacheControl: '31536000' })
     if (error) return null
     return supabase.storage.from('images').getPublicUrl(path).data.publicUrl
   } catch {
@@ -155,6 +160,7 @@ export async function POST(request: NextRequest) {
 
     let content: unknown = null
     let title = node.title
+    let description: string | null = null
 
     if (kind === 'document' && node.gbPath) {
       const md = await fetchMarkdown(node.gbPath)
@@ -165,6 +171,7 @@ export async function POST(request: NextRequest) {
         }
         content = converted.blocks
         if (converted.title) title = converted.title
+        if (converted.description) description = converted.description
       } else {
         errors.push(`fetch failed: ${node.gbPath}`)
       }
@@ -176,6 +183,7 @@ export async function POST(request: NextRequest) {
         project_id: projectId,
         parent_id: parentId,
         title,
+        description,
         slug,
         path,
         kind,

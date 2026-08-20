@@ -101,3 +101,25 @@ export async function triggerWorker() {
 export async function notifyPagePublished() {
   await triggerWorker()
 }
+
+// Do-not-translate glossary (platform UI terms like "Operations Dashboard").
+// Self-serve: any authenticated admin manages the shared list, no code change
+// needed. New/edited terms only affect translations run after they're added —
+// existing cached translation_memory entries aren't retroactively fixed.
+export async function addGlossaryTerm(term: string, notes: string) {
+  const trimmed = term.trim()
+  if (!trimmed) throw new Error('term is required')
+  const supabase = await createClient()
+  const { error } = await supabase
+    .from('translation_glossary')
+    .insert({ term: trimmed, notes: notes.trim() || null })
+  if (error) throw new Error(error.message.includes('unique') ? 'That term is already in the glossary.' : error.message)
+  revalidatePath('/admin/translations')
+}
+
+export async function deleteGlossaryTerm(id: string) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('translation_glossary').delete().eq('id', id)
+  if (error) throw new Error(error.message)
+  revalidatePath('/admin/translations')
+}

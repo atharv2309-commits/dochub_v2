@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { createAnonClient } from '@/lib/supabase/anon'
-import { SITE_URL } from '@/lib/site'
+import { siteUrlForProject } from '@/lib/site'
 import { DEFAULT_LOCALE } from '@/lib/i18n/config'
 import { getProject, listProjects, searchDocs, getPageTree, getPage, type TreeNode } from './queries'
 
@@ -23,7 +23,7 @@ function capBody(md: string): string {
 
 /** Canonical public URL for a doc page (used as a citation in every result). */
 function docUrl(project: string, path: string): string {
-  return `${SITE_URL}/${DEFAULT_LOCALE}/docs/${project}/${path}`
+  return `${siteUrlForProject(project)}/${DEFAULT_LOCALE}/docs/${project}/${path}`
 }
 
 function renderTree(nodes: TreeNode[], project: string, depth = 0): string {

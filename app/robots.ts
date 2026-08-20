@@ -1,13 +1,14 @@
 import type { MetadataRoute } from 'next'
-import { SITE_URL } from '@/lib/site'
+import { currentSiteUrl } from '@/lib/site'
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const siteUrl = await currentSiteUrl()
   return {
     rules: {
       userAgent: '*',
       allow: ['/', '/docs/'],
       disallow: ['/admin', '/auth', '/api/'],
     },
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: `${siteUrl}/sitemap.xml`,
   }
 }

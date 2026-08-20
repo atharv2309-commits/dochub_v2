@@ -1,0 +1,90 @@
+{
+  "nav": {
+    "onThisPage": "On this page",
+    "toggleNavigation": "Toggle navigation",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "sidebar": {
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "noPages": "No pages yet.",
+    "poweredBy": "Powered by DocHub"
+  },
+  "search": {
+    "shortPlaceholder": "Search…",
+    "placeholder": "Search docs or ask a question…",
+    "askAi": "Ask AI",
+    "startTyping": "Start typing to search",
+    "backToSearch": "Back to search",
+    "clear": "Clear search",
+    "aiAnswer": "AI answer",
+    "error": "Something went wrong. Please try again.",
+    "followupPlaceholder": "Ask a follow-up…",
+    "stop": "Stop",
+    "send": "Send"
+  },
+  "theme": {
+    "toLight": "Switch to light mode",
+    "toDark": "Switch to dark mode"
+  },
+  "switcher": {
+    "toReleases": "View Releases",
+    "toDocs": "View Documentation"
+  },
+  "linkPreview": {
+    "loading": "Loading…"
+  },
+  "language": {
+    "change": "Change language",
+    "switching": "Switching…"
+  },
+  "code": {
+    "copy": "Copy code",
+    "copied": "Copied"
+  },
+  "pdf": {
+    "label": "Download PDF",
+    "preparing": "Preparing…",
+    "downloadModule": "Download section as PDF",
+    "downloadAll": "Download full documentation (PDF)"
+  },
+  "content": {
+    "empty": "This page has no content yet."
+  },
+  "translation": {
+    "untranslated": "This page hasn't been translated yet — showing the English original.",
+    "outdated": "This translation is out of date — showing the last translated version while it updates."
+  },
+  "mcp": {
+    "copy": "Copy",
+    "ariaLabel": "Connect an AI agent",
+    "live": "Live",
+    "title": "Connect an AI agent",
+    "description": "Let AI tools like Claude, Cursor, and VS Code read these docs directly.",
+    "connectInSeconds": "Connect in seconds",
+    "footer": "Read-only access to published documentation.",
+    "toolSearchLabel": "Search",
+    "toolSearchDesc": "Full-text search across published docs.",
+    "toolReadLabel": "Read",
+    "toolReadDesc": "Fetch a page's full content as Markdown.",
+    "toolBrowseLabel": "Browse",
+    "toolBrowseDesc": "List a project's page tree.",
+    "hintClaudeCode": "Add this MCP server to Claude Code.",
+    "hintClaudeDesktop": "Add this MCP server to Claude Desktop's config.",
+    "hintCursor": "Add this MCP server to Cursor's config.",
+    "hintVscode": "Add this MCP server to VS Code's config.",
+    "hintUrl": "Use this URL with any MCP-compatible client."
+  },
+  "pageActions": {
+    "menuLabel": "Ask",
+    "copyPage": "Copy page",
+    "copyPageDesc": "Copy page as Markdown, for LLMs",
+    "copied": "Copied",
+    "viewAsMarkdown": "View as Markdown",
+    "openInChatGPT": "Open in ChatGPT",
+    "openInClaude": "Open in Claude",
+    "connectWithMcp": "Connect with MCP",
+    "downloadPdf": "Download as PDF"
+  }
+}

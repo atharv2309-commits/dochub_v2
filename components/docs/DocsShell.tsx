@@ -7,7 +7,7 @@ import type { SearchPage } from '@/components/docs/DocsSearch'
 import { DocsHeader } from '@/components/docs/DocsHeader'
 import { DocsSidebar } from '@/components/docs/DocsSidebar'
 import { cn } from '@/lib/utils'
-import { SOURCE_LOCALE } from '@/lib/i18n/config'
+import { SOURCE_LOCALE, getDir } from '@/lib/i18n/config'
 
 // Responsive shell: sidebar is static on desktop and a slide-in drawer on mobile.
 export function DocsShell({
@@ -28,6 +28,17 @@ export function DocsShell({
 
   // Close the drawer on navigation.
   useEffect(() => setOpen(false), [pathname])
+
+  // The root <html dir/lang> is set by a Server Component that only runs on a
+  // full document load — the language switcher does a client-side navigation,
+  // which re-renders this layout (fresh `lang` prop) but never re-runs the
+  // root layout above it. Without this, dir/lang stay frozen at whatever
+  // locale the tab first loaded, silently mismatching the actual content
+  // after every in-app language switch.
+  useEffect(() => {
+    document.documentElement.lang = lang
+    document.documentElement.dir = getDir(lang)
+  }, [lang])
 
   // Locales offered in the switcher: source language + the project's targets.
   const availableLocales = [SOURCE_LOCALE, ...(project.enabled_locales ?? [])]
@@ -53,13 +64,19 @@ export function DocsShell({
           />
         )}
 
-        {/* Sidebar — drawer on mobile, static column on desktop */}
+        {/* Sidebar — drawer on mobile, static column on desktop. `start-0` +
+            the `rtl:` variant mean the drawer slides in from the correct edge
+            (left in LTR, right in RTL). The transform utilities are scoped to
+            `max-lg:` so they never exist at lg+ — `[dir=rtl]` selectors have
+            higher CSS specificity than a plain `lg:` class, so without this
+            scoping `rtl:translate-x-full` wins the cascade at ANY width and
+            pushes the desktop sidebar off-screen in RTL, not just mobile. */}
         <div
           className={cn(
             'z-40 lg:z-auto',
-            'fixed lg:static inset-y-0 top-14 lg:top-auto left-0',
-            'transition-transform duration-200 lg:translate-x-0',
-            open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+            'fixed lg:static inset-y-0 top-14 lg:top-auto start-0',
+            'transition-transform duration-200',
+            open ? 'max-lg:translate-x-0' : 'max-lg:-translate-x-full max-lg:rtl:translate-x-full'
           )}
         >
           <DocsSidebar lang={lang} project={project} pageTree={pageTree} />

@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "onThisPage": "Šajā lapā",
+    "toggleNavigation": "Pārslēgt navigāciju",
+    "previous": "Iepriekšējais",
+    "next": "Tālāk"
+  },
+  "sidebar": {
+    "collapse": "Sakļaut sānjoslu",
+    "expand": "Izvērst sānjoslu",
+    "noPages": "Vēl nav nevienas lapas.",
+    "poweredBy": "Darbojas ar DocHub"
+  },
+  "search": {
+    "shortPlaceholder": "Meklēt…",
+    "placeholder": "Meklējiet dokumentus vai uzdodiet jautājumu…",
+    "askAi": "Jautājiet AI",
+    "startTyping": "Sāciet rakstīt, lai meklētu",
+    "backToSearch": "Atpakaļ uz meklēšanu",
+    "aiAnswer": "AI atbilde",
+    "error": "Kaut kas nogāja greizi. Lūdzu, mēģiniet vēlreiz.",
+    "followupPlaceholder": "Jautājiet pēcpārbaudei…",
+    "stop": "Stop",
+    "send": "Sūtīt"
+  },
+  "theme": {
+    "toLight": "Pārslēdzieties uz gaismas režīmu",
+    "toDark": "Pārslēdzieties uz tumšo režīmu"
+  },
+  "language": {
+    "change": "Mainīt valodu",
+    "switching": "Notiek pārslēgšana…"
+  },
+  "code": {
+    "copy": "Kopēt kodu",
+    "copied": "Kopēts"
+  },
+  "pdf": {
+    "label": "Lejupielādēt PDF",
+    "preparing": "Notiek sagatavošana…"
+  },
+  "content": {
+    "empty": "Šai lapai vēl nav satura."
+  },
+  "translation": {
+    "untranslated": "Šī lapa vēl nav tulkota — tiek rādīts oriģināls angļu valodā.",
+    "outdated": "Šis tulkojums ir novecojis — tiek rādīta pēdējā tulkotā versija, kamēr tas tiek atjaunināts."
+  },
+  "mcp": {
+    "copy": "Kopēt",
+    "ariaLabel": "Pievienojiet AI aģentu",
+    "live": "Tiešraidē",
+    "title": "Pievienojiet AI aģentu",
+    "description": "Ļaujiet AI rīkiem, piemēram, Claude, Cursor un VS Code, tieši lasīt šos dokumentus.",
+    "connectInSeconds": "Izveidojiet savienojumu dažu sekunžu laikā",
+    "footer": "Tikai lasīšanas piekļuve publicētajai dokumentācijai.",
+    "toolSearchLabel": "Meklēt",
+    "toolSearchDesc": "Pilna teksta meklēšana publicētajos dokumentos.",
+    "toolReadLabel": "Lasīt",
+    "toolReadDesc": "Ienesiet pilnu lapas saturu kā Markdown.",
+    "toolBrowseLabel": "Pārlūkot",
+    "toolBrowseDesc": "Norādiet projekta lapu koku.",
+    "hintClaudeCode": "Pievienojiet šo MCP serveri Kloda kodam.",
+    "hintClaudeDesktop": "Pievienojiet šo MCP serveri Claude Desktop konfigurācijai.",
+    "hintCursor": "Pievienojiet šo MCP serveri kursora konfigurācijai.",
+    "hintVscode": "Pievienojiet šo MCP serveri VS koda konfigurācijai.",
+    "hintUrl": "Izmantojiet šo URL ar jebkuru ar MCP saderīgu klientu."
+  }
+}

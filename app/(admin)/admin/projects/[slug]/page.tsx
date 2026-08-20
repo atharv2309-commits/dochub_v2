@@ -3,6 +3,8 @@ import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { StatCard } from '@/components/admin/StatCard'
+import { GithubSyncPanel } from '@/components/admin/GithubSyncPanel'
+import { GithubSyncNotice } from '@/components/admin/GithubSyncNotice'
 import { ExternalLink, BookOpen, FileText, Globe, Lock, ArrowUpRight } from 'lucide-react'
 
 function timeAgo(date: string): string {
@@ -37,6 +39,17 @@ export default async function ProjectOverviewPage({
 
   if (!project) notFound()
 
+  const pendingSync = project.github_repo
+    ? (
+        await supabase
+          .from('github_sync_events')
+          .select('id, summary')
+          .eq('project_id', project.id)
+          .eq('status', 'pending')
+          .maybeSingle()
+      ).data
+    : null
+
   const { data: pages } = await supabase
     .from('pages')
     .select('id, title, status, updated_at')
@@ -49,6 +62,9 @@ export default async function ProjectOverviewPage({
 
   return (
     <div className="max-w-3xl mx-auto px-8 py-10">
+      {pendingSync && (
+        <GithubSyncNotice projectId={project.id} eventId={pendingSync.id} summary={pendingSync.summary} />
+      )}
       <div className="flex items-start justify-between gap-4 mb-8">
         <div className="flex items-center gap-4">
           <div className="text-4xl w-14 h-14 rounded-xl bg-secondary flex items-center justify-center">
@@ -62,12 +78,20 @@ export default async function ProjectOverviewPage({
             )}
           </div>
         </div>
-        <Button asChild variant="outline" size="sm" className="gap-2 flex-shrink-0">
-          <a href={`/docs/${project.slug}`} target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="w-4 h-4" />
-            View docs
-          </a>
-        </Button>
+        <div className="flex flex-col items-end gap-2 flex-shrink-0">
+          <Button asChild variant="outline" size="sm" className="gap-2">
+            <a href={`/docs/${project.slug}`} target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="w-4 h-4" />
+              View docs
+            </a>
+          </Button>
+          <GithubSyncPanel
+            projectId={project.id}
+            githubRepo={project.github_repo}
+            githubBranch={project.github_branch}
+            neverSynced={!project.github_last_synced_sha}
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-3 gap-4 mb-8">

@@ -1,6 +1,12 @@
 import { AlertTriangle, Info, XCircle, CheckCircle } from 'lucide-react'
 import { toEmbedUrl, isVideoFile, videoThumbnail } from '@/lib/utils/embed'
 import { CodeBlockView } from './CodeBlockView'
+import { LinkPreviewCard } from './LinkPreviewCard'
+import { resolveInternalLink, knownOriginsFor } from '@/lib/docs/resolveInternalLink'
+
+// Same two projects proxy.ts/extractPageLinks.ts already hardcode. Computed
+// once at module load — no I/O, no per-render cost.
+const KNOWN_ORIGINS = knownOriginsFor(['flytbase-docs', 'flytbase-releases'])
 
 // Plain JSON types matching BlockNote's output format
 type TextStyle = { bold?: boolean; italic?: boolean; code?: boolean; strikethrough?: boolean; underline?: boolean }
@@ -21,20 +27,30 @@ interface DocBlock {
 function renderInline(content: InlineNode[]): React.ReactNode {
   return content.map((node, i) => {
     if (node.type === 'link') {
+      const linkClassName = 'text-primary underline underline-offset-2 hover:opacity-80'
+      // Known-internal links get a hover preview; everything else (external
+      // sites, mailto:, anchors) renders exactly as before, untouched.
+      if (resolveInternalLink(node.href, KNOWN_ORIGINS)) {
+        return (
+          <LinkPreviewCard key={i} href={node.href} className={linkClassName}>
+            {renderInline(node.content)}
+          </LinkPreviewCard>
+        )
+      }
       return (
         <a
           key={i}
           href={node.href}
           target={node.href?.startsWith('http') ? '_blank' : undefined}
           rel="noopener noreferrer"
-          className="text-primary underline underline-offset-2 hover:opacity-80"
+          className={linkClassName}
         >
           {renderInline(node.content)}
         </a>
       )
     }
     let el: React.ReactNode = node.text
-    if (node.styles?.code) el = <code key={`c${i}`} className="font-mono bg-muted px-1 py-0.5 rounded text-sm">{el}</code>
+    if (node.styles?.code) el = <code key={`c${i}`} className="font-mono bg-muted px-1 py-0.5 rounded-none text-sm">{el}</code>
     if (node.styles?.bold) el = <strong key={`b${i}`}>{el}</strong>
     if (node.styles?.italic) el = <em key={`i${i}`}>{el}</em>
     if (node.styles?.strikethrough) el = <del key={`s${i}`}>{el}</del>

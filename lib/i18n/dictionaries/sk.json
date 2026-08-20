@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "onThisPage": "Na tejto stránke",
+    "toggleNavigation": "Prepnúť navigáciu",
+    "previous": "Predchádzajúce",
+    "next": "Ďalej"
+  },
+  "sidebar": {
+    "collapse": "Zbaliť bočný panel",
+    "expand": "Rozbaliť bočný panel",
+    "noPages": "Zatiaľ žiadne stránky.",
+    "poweredBy": "Beží na DocHub"
+  },
+  "search": {
+    "shortPlaceholder": "Hľadať…",
+    "placeholder": "Vyhľadajte dokumenty alebo položte otázku...",
+    "askAi": "Opýtajte sa AI",
+    "startTyping": "Ak chcete hľadať, začnite písať",
+    "backToSearch": "Späť na vyhľadávanie",
+    "aiAnswer": "odpoveď AI",
+    "error": "Niečo sa pokazilo. Skúste to znova.",
+    "followupPlaceholder": "Opýtajte sa na sledovanie…",
+    "stop": "Stop",
+    "send": "Odoslať"
+  },
+  "theme": {
+    "toLight": "Prepnite do svetelného režimu",
+    "toDark": "Prepnite do tmavého režimu"
+  },
+  "language": {
+    "change": "Zmeniť jazyk",
+    "switching": "Prepína sa…"
+  },
+  "code": {
+    "copy": "Kopírovať kód",
+    "copied": "Skopírované"
+  },
+  "pdf": {
+    "label": "Stiahnite si PDF",
+    "preparing": "Pripravuje sa…"
+  },
+  "content": {
+    "empty": "Táto stránka zatiaľ nemá žiadny obsah."
+  },
+  "translation": {
+    "untranslated": "Táto stránka ešte nebola preložená – zobrazuje sa anglický originál.",
+    "outdated": "Tento preklad je zastaraný – zobrazuje sa posledná preložená verzia počas aktualizácie."
+  },
+  "mcp": {
+    "copy": "Kopírovať",
+    "ariaLabel": "Pripojte agenta AI",
+    "live": "Naživo",
+    "title": "Pripojte agenta AI",
+    "description": "Nechajte nástroje AI, ako sú Claude, Cursor a VS Code, čítať tieto dokumenty priamo.",
+    "connectInSeconds": "Pripojte sa za pár sekúnd",
+    "footer": "Prístup len na čítanie k publikovanej dokumentácii.",
+    "toolSearchLabel": "Hľadať",
+    "toolSearchDesc": "Fulltextové vyhľadávanie v publikovaných dokumentoch.",
+    "toolReadLabel": "Prečítajte si",
+    "toolReadDesc": "Načítajte celý obsah stránky ako Markdown.",
+    "toolBrowseLabel": "Prehľadávať",
+    "toolBrowseDesc": "Uveďte strom stránky projektu.",
+    "hintClaudeCode": "Pridajte tento server MCP do Claude Code.",
+    "hintClaudeDesktop": "Pridajte tento server MCP do konfigurácie Claude Desktop.",
+    "hintCursor": "Pridajte tento server MCP do konfigurácie kurzora.",
+    "hintVscode": "Pridajte tento server MCP do konfigurácie kódu VS.",
+    "hintUrl": "Túto adresu URL použite s akýmkoľvek klientom kompatibilným s MCP."
+  }
+}

@@ -1,11 +1,14 @@
-import { openai } from '@ai-sdk/openai'
+import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { streamText, convertToModelMessages, type UIMessage } from 'ai'
 import { retrieveRelevantPages } from '@/lib/search/retrieve'
 
 export const maxDuration = 30
 
-// Cheap, fast model that's plenty for grounded doc Q&A. Swap freely.
-const MODEL = 'gpt-4o-mini'
+// This repo only has a Gemini key configured (GEMINI_API_KEY) — same provider
+// already used for the analytics digest. @ai-sdk/google's default export reads
+// GOOGLE_GENERATIVE_AI_API_KEY, so build the provider explicitly with our key.
+const google = createGoogleGenerativeAI({ apiKey: process.env.GEMINI_API_KEY })
+const MODEL = 'gemini-2.5-flash'
 
 function lastUserText(messages: UIMessage[]): string {
   for (let i = messages.length - 1; i >= 0; i--) {
@@ -51,7 +54,7 @@ Rules:
 ${pages.length ? `Documentation sources:\n\n${context}` : 'No documentation sources matched this query.'}`
 
   const result = streamText({
-    model: openai(MODEL),
+    model: google(MODEL),
     system,
     messages: await convertToModelMessages(messages),
   })

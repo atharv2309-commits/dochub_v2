@@ -8,6 +8,7 @@ import { getDictionary } from '@/lib/i18n/dictionary'
 import { DictionaryProvider } from '@/components/i18n/DictionaryProvider'
 import { getPublicProject, getPublicPages, getPublicTitles } from '@/lib/docs/cache'
 import { SOURCE_LOCALE } from '@/lib/i18n/config'
+import { Analytics } from '@/components/docs/Analytics'
 
 // Override page titles in a tree with their localized versions (tree nodes are
 // fresh copies from buildTree, so this never mutates the cached source pages).
@@ -74,6 +75,7 @@ export default async function DocsLayout({
 
   return (
     <DictionaryProvider dict={dict}>
+      <Analytics />
       {/* Public components only read slug/name/icon/enabled_locales from project. */}
       <DocsShell lang={lang} project={project as unknown as Project} pageTree={pageTree} searchPages={searchPages}>
         {children}

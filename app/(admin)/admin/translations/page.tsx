@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { AdminHeader } from '@/components/admin/AdminHeader'
 import { ProjectLanguageGrid, type LangStat } from '@/components/admin/translations/ProjectLanguageGrid'
+import { GlossaryManager } from '@/components/admin/translations/GlossaryManager'
 import { Languages, ChevronRight } from 'lucide-react'
 
 // Translation overview: every project shows ALL languages. Click a language to
@@ -31,6 +32,11 @@ export default async function TranslationsOverview() {
         .eq('status', 'published')
         .eq('hidden', false)
     : { data: [] as { id: string; project_id: string }[] }
+
+  const { data: glossaryTerms } = await supabase
+    .from('translation_glossary')
+    .select('*')
+    .order('term', { ascending: true })
 
   const pageIds = (pages ?? []).map((p) => p.id)
   const { data: translations } = pageIds.length
@@ -115,6 +121,10 @@ export default async function TranslationsOverview() {
             })}
           </div>
         )}
+
+        <div className="mt-8">
+          <GlossaryManager terms={glossaryTerms ?? []} />
+        </div>
       </main>
     </>
   )

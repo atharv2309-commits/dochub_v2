@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "onThisPage": "Op deze pagina",
+    "toggleNavigation": "Schakel navigatie in",
+    "previous": "Vorig",
+    "next": "Volgende"
+  },
+  "sidebar": {
+    "collapse": "Zijbalk samenvouwen",
+    "expand": "Zijbalk uitvouwen",
+    "noPages": "Nog geen pagina's.",
+    "poweredBy": "Mogelijk gemaakt door DocHub"
+  },
+  "search": {
+    "shortPlaceholder": "Zoekopdracht…",
+    "placeholder": "Documenten doorzoeken of een vraag stellen...",
+    "askAi": "Vraag het AI",
+    "startTyping": "Begin met typen om te zoeken",
+    "backToSearch": "Terug naar zoeken",
+    "aiAnswer": "AI-antwoord",
+    "error": "Er is iets misgegaan. Probeer het opnieuw.",
+    "followupPlaceholder": "Vraag een vervolg…",
+    "stop": "Stop",
+    "send": "Versturen"
+  },
+  "theme": {
+    "toLight": "Schakel over naar de lichtmodus",
+    "toDark": "Schakel over naar de donkere modus"
+  },
+  "language": {
+    "change": "Taal wijzigen",
+    "switching": "Overstappen…"
+  },
+  "code": {
+    "copy": "Kopieer code",
+    "copied": "Gekopieerd"
+  },
+  "pdf": {
+    "label": "PDF downloaden",
+    "preparing": "Voorbereiden…"
+  },
+  "content": {
+    "empty": "Deze pagina heeft nog geen inhoud."
+  },
+  "translation": {
+    "untranslated": "Deze pagina is nog niet vertaald en toont het Engelse origineel.",
+    "outdated": "Deze vertaling is verouderd en toont de laatst vertaalde versie terwijl deze wordt bijgewerkt."
+  },
+  "mcp": {
+    "copy": "Kopiëren",
+    "ariaLabel": "Sluit een AI-agent aan",
+    "live": "Live",
+    "title": "Sluit een AI-agent aan",
+    "description": "Laat AI-tools zoals Claude, Cursor en VS Code deze documenten rechtstreeks lezen.",
+    "connectInSeconds": "Maak binnen enkele seconden verbinding",
+    "footer": "Alleen-lezen toegang tot gepubliceerde documentatie.",
+    "toolSearchLabel": "Zoekopdracht",
+    "toolSearchDesc": "Zoeken in volledige tekst in gepubliceerde documenten.",
+    "toolReadLabel": "Lezen",
+    "toolReadDesc": "Haal de volledige inhoud van een pagina op als Markdown.",
+    "toolBrowseLabel": "Blader",
+    "toolBrowseDesc": "Geef de paginaboom van een project weer.",
+    "hintClaudeCode": "Voeg deze MCP-server toe aan Claude Code.",
+    "hintClaudeDesktop": "Voeg deze MCP-server toe aan de configuratie van Claude Desktop.",
+    "hintCursor": "Voeg deze MCP-server toe aan de configuratie van Cursor.",
+    "hintVscode": "Voeg deze MCP-server toe aan de configuratie van VS Code.",
+    "hintUrl": "Gebruik deze URL met elke MCP-compatibele client."
+  }
+}

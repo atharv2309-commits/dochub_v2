@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
-import { Geist_Mono, Lora, Inter } from 'next/font/google'
+import { Geist, Geist_Mono, Lora } from 'next/font/google'
 import { headers } from 'next/headers'
 import './globals.css'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { DEFAULT_LOCALE, getDir } from '@/lib/i18n/config'
 
-// Inter is the global UI + docs font (matches docs.flytbase.com / GitBook).
-const inter = Inter({
-  variable: '--font-inter',
+// Geist is the global UI + docs font (FlytBase-26 Design System §3.1).
+const geistSans = Geist({
+  variable: '--font-geist-sans',
   subsets: ['latin'],
 })
 
@@ -39,7 +39,7 @@ export default async function RootLayout({
   const locale = (await headers()).get('x-locale') || DEFAULT_LOCALE
   return (
     <html lang={locale} dir={getDir(locale)} suppressHydrationWarning>
-      <body className={`${inter.variable} ${geistMono.variable} ${lora.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${lora.variable} antialiased`}>
         <ThemeProvider>
           <TooltipProvider delayDuration={200}>
             {children}

@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "onThisPage": "Nesta página",
+    "toggleNavigation": "Alternar navegação",
+    "previous": "Anterior",
+    "next": "Próxima"
+  },
+  "sidebar": {
+    "collapse": "Recolher barra lateral",
+    "expand": "Expandir barra lateral",
+    "noPages": "Nenhuma página ainda.",
+    "poweredBy": "Desenvolvido por DocHub"
+  },
+  "search": {
+    "shortPlaceholder": "Procurar…",
+    "placeholder": "Pesquise documentos ou faça uma pergunta…",
+    "askAi": "Pergunte à IA",
+    "startTyping": "Comece a digitar para pesquisar",
+    "backToSearch": "Voltar à pesquisa",
+    "aiAnswer": "Resposta de IA",
+    "error": "Algo deu errado. Por favor, tente novamente.",
+    "followupPlaceholder": "Peça um acompanhamento…",
+    "stop": "Parar",
+    "send": "Enviar"
+  },
+  "theme": {
+    "toLight": "Mudar para o modo claro",
+    "toDark": "Mudar para o modo escuro"
+  },
+  "language": {
+    "change": "Alterar idioma",
+    "switching": "Trocando…"
+  },
+  "code": {
+    "copy": "Copiar código",
+    "copied": "Copiada"
+  },
+  "pdf": {
+    "label": "Baixar PDF",
+    "preparing": "Preparando…"
+  },
+  "content": {
+    "empty": "Esta página ainda não tem conteúdo."
+  },
+  "translation": {
+    "untranslated": "Esta página ainda não foi traduzida — mostrando o original em inglês.",
+    "outdated": "Esta tradução está desatualizada — mostrando a última versão traduzida enquanto ela é atualizada."
+  },
+  "mcp": {
+    "copy": "Cópia",
+    "ariaLabel": "Conecte um agente de IA",
+    "live": "Ao vivo",
+    "title": "Conecte um agente de IA",
+    "description": "Deixe que ferramentas de IA como Claude, Cursor e VS Code leiam esses documentos diretamente.",
+    "connectInSeconds": "Conecte-se em segundos",
+    "footer": "Acesso somente leitura à documentação publicada.",
+    "toolSearchLabel": "Procurar",
+    "toolSearchDesc": "Pesquisa de texto completo em documentos publicados.",
+    "toolReadLabel": "Ler",
+    "toolReadDesc": "Obtenha o conteúdo completo de uma página como Markdown.",
+    "toolBrowseLabel": "Navegar",
+    "toolBrowseDesc": "Liste a árvore de páginas de um projeto.",
+    "hintClaudeCode": "Adicione este servidor MCP ao Claude Code.",
+    "hintClaudeDesktop": "Adicione este servidor MCP à configuração do Claude Desktop.",
+    "hintCursor": "Adicione este servidor MCP à configuração do Cursor.",
+    "hintVscode": "Adicione este servidor MCP à configuração do VS Code.",
+    "hintUrl": "Use esta URL com qualquer cliente compatível com MCP."
+  }
+}

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { createClient } from '@supabase/supabase-js'
-import { SITE_URL } from '@/lib/site'
+import { headers } from 'next/headers'
+import { currentSiteUrl, projectSlugForHost } from '@/lib/site'
 import { SOURCE_LOCALE } from '@/lib/i18n/config'
 
 // Cookieless anon client — sitemap only needs public (RLS-readable) data.
@@ -17,14 +18,21 @@ export const revalidate = 3600
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = anonClient()
 
-  const { data: projects } = await supabase
-    .from('projects')
-    .select('id, slug, updated_at, enabled_locales')
-    .eq('visibility', 'public')
+  // Domain-scoped deployments only advertise their own project's pages — a
+  // combined sitemap across every project in the shared DB would be wrong SEO
+  // for a site living at its own domain. Unmapped hosts (local/dev, a preview
+  // deployment) keep the old "every public project" behavior.
+  const host = (await headers()).get('host')
+  const pinnedSlug = host ? projectSlugForHost(host) : null
+
+  let query = supabase.from('projects').select('id, slug, updated_at, enabled_locales').eq('visibility', 'public')
+  if (pinnedSlug) query = query.eq('slug', pinnedSlug)
+  const { data: projects } = await query
 
   const entries: MetadataRoute.Sitemap = []
   if (!projects?.length) return entries
 
+  const siteUrl = await currentSiteUrl()
   const bySlug = new Map(projects.map((p) => [p.id, p.slug]))
   // Locales to emit per project: source language + enabled targets.
   const localesByProject = new Map(
@@ -35,11 +43,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // right language variant.
   const emit = (slug: string, locales: string[], suffix: string, lastModified: string, priority?: number) => {
     const languages: Record<string, string> = {}
-    for (const l of locales) languages[l] = `${SITE_URL}/${l}/docs/${slug}${suffix}`
-    languages['x-default'] = `${SITE_URL}/${SOURCE_LOCALE}/docs/${slug}${suffix}`
+    for (const l of locales) languages[l] = `${siteUrl}/${l}/docs/${slug}${suffix}`
+    languages['x-default'] = `${siteUrl}/${SOURCE_LOCALE}/docs/${slug}${suffix}`
     for (const l of locales) {
       entries.push({
-        url: `${SITE_URL}/${l}/docs/${slug}${suffix}`,
+        url: `${siteUrl}/${l}/docs/${slug}${suffix}`,
         lastModified,
         changeFrequency: 'weekly',
         priority,

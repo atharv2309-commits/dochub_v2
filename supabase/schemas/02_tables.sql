@@ -12,6 +12,11 @@ CREATE TABLE projects (
   theme           jsonb       NOT NULL DEFAULT '{}',
   custom_domain   text,
   enabled_locales text[]      NOT NULL DEFAULT '{}',  -- non-source locales this project publishes
+  -- GitHub sync source (optional). "owner/repo", GitBook Git-Sync layout
+  -- (SUMMARY.md + nested .md + .gitbook/assets). NULL github_repo = unlinked.
+  github_repo             text,
+  github_branch           text        NOT NULL DEFAULT 'main',
+  github_last_synced_sha  text,                       -- commit synced through; NULL = never synced
   created_at      timestamptz NOT NULL DEFAULT now(),
   updated_at      timestamptz NOT NULL DEFAULT now(),
   UNIQUE (user_id, slug)
@@ -44,6 +49,10 @@ CREATE TABLE pages (
   draft_updated_at timestamptz,
   link_href       text,
   status          page_status NOT NULL DEFAULT 'draft',
+  -- Repo-relative source path (e.g. "device-management/overview.md") this page
+  -- was synced from. NULL for pages authored directly in DocHub. Lets sync
+  -- match an incoming changed file back to its page without relying on slug.
+  github_path     text,
   created_at      timestamptz NOT NULL DEFAULT now(),
   updated_at      timestamptz NOT NULL DEFAULT now(),
   created_by      uuid        REFERENCES auth.users(id),
@@ -59,6 +68,11 @@ CREATE INDEX pages_status_idx ON pages (project_id, status);
 CREATE INDEX pages_pending_draft_idx
   ON pages (project_id, draft_updated_at DESC)
   WHERE draft_content IS NOT NULL OR status = 'draft';
+
+-- One page per source file per project (sync's lookup key).
+CREATE UNIQUE INDEX pages_github_path_idx
+  ON pages (project_id, github_path)
+  WHERE github_path IS NOT NULL;
 
 -- updated_at auto-update trigger
 CREATE OR REPLACE FUNCTION update_updated_at()

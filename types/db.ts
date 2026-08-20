@@ -28,3 +28,21 @@ export type PageTranslation = Database['public']['Tables']['page_translations'][
 export type TranslationJob = Database['public']['Tables']['translation_jobs']['Row']
 export type TranslationStatus = Database['public']['Enums']['translation_status']
 export type TranslationJobStatus = Database['public']['Enums']['translation_job_status']
+
+export type GithubSyncEvent = Database['public']['Tables']['github_sync_events']['Row']
+export type GithubSyncEventStatus = Database['public']['Enums']['github_sync_event_status']
+
+export type TranslationGlossaryTerm = Database['public']['Tables']['translation_glossary']['Row']
+
+export type PageEvent = Database['public']['Tables']['page_events']['Row']
+export type PageEventInsert = Database['public']['Tables']['page_events']['Insert']
+export type PageEventType = Database['public']['Enums']['page_event_type']
+export type AnalyticsInsight = Database['public']['Tables']['analytics_insights']['Row']
+
+export type ContentEntity = Database['public']['Tables']['content_entities']['Row']
+export type PageEntityLink = Database['public']['Tables']['page_entity_links']['Row']
+export type EntityLinkKind = Database['public']['Enums']['entity_link_kind']
+export type EntityLinkStatus = Database['public']['Enums']['entity_link_status']
+export type PageLink = Database['public']['Tables']['page_links']['Row']
+export type GraphExtractJob = Database['public']['Tables']['graph_extract_jobs']['Row']
+export type EntityAuditJob = Database['public']['Tables']['entity_audit_jobs']['Row']

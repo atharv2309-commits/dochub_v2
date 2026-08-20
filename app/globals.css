@@ -4,14 +4,60 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* FlytBase-26 Design System — token reference (DESIGN-SYSTEM.md §13) */
+@theme {
+  --color-dbg: #1A1A1A;
+  --color-ds: #242424;
+  --color-de: #2E2E2E;
+  --color-db: #3D3D3D;
+  --color-dm: #8A8A8A;
+  --color-dsc: #999999;
+  --color-dbd: #D6D6D6;
+  --color-dh: #F0F0F0;
+
+  --color-lbg: #F5F5F7;
+  --color-ls: #FFFFFF;
+  --color-lb: #DDDFE3;
+  --color-lsc: #555555;
+  --color-lp: #111111;
+
+  --color-o50: #FDF0E8;
+  --color-o100: #F4B896;
+  --color-o200: #EC7D42;
+  --color-o400: #D95B28;
+  --color-o600: #A33D14;
+  --color-o800: #7A2B0E;
+  --color-o900: #4A1808;
+
+  --color-e50: #EAF0EE;
+  --color-e100: #BACDD0;
+  --color-e200: #72A899;
+  --color-e400: #3A7A65;
+  --color-e600: #2B5A4A;
+  --color-e800: #1B3A30;
+  --color-e900: #0F2219;
+
+  --color-error: #F43F5E;
+
+  --tracking-tightest: -0.04em;
+  --tracking-tighter2: -0.02em;
+  --tracking-wideish: 0.06em;
+  --tracking-wider2: 0.08em;
+  --tracking-widest2: 0.12em;
+
+  --container-page: 1200px;
+
+  --background-image-thermal: linear-gradient(135deg, #FE5C0C 0%, #A90901 35%, #5C1A0A 55%, #2E1510 70%, #1A1A1A 100%);
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display), Georgia, serif;
-  --font-docs: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-inter);
+  --font-docs: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-geist-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -50,85 +96,94 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/* FlytBase brand dark theme — matched to flytbase.com computed colors:
-   bg #1a1a1a, surfaces #242424/#2e2e2e, borders #3d3d3d, orange #d95b28/#fe5c0c */
+/* FlytBase-26 Design System tokens (DESIGN-SYSTEM.md §13). Dark is the
+   canonical/default look; light is a real toggle (next-themes, .dark class)
+   using the light primitives already defined above (lbg/ls/lb/lsc/lp). */
 :root {
-  --background: oklch(0.223 0 0);          /* #1a1a1a — charcoal, NOT pure black */
-  --foreground: oklch(0.95 0 0);           /* #f0f0f0 headings */
-  --card: oklch(0.255 0 0);                /* #242424 */
-  --card-foreground: oklch(0.95 0 0);
-  --popover: oklch(0.255 0 0);
-  --popover-foreground: oklch(0.95 0 0);
-  /* FlytBase orange primary — #fe5c0c bright / #d95b28 fill */
-  --primary: oklch(0.66 0.205 38);
-  --primary-foreground: oklch(1 0 0);
-  /* Brand orange ramp for gradients & glows */
-  --brand-orange: #fe5c0c;
-  --brand-orange-deep: #a90901;
-  --brand-orange-fill: #d95b28;
-  --secondary: oklch(0.30 0 0);            /* #2e2e2e */
-  --secondary-foreground: oklch(0.95 0 0);
-  --muted: oklch(0.30 0 0);
-  --muted-foreground: oklch(0.68 0 0);     /* ~#a0a0a0 secondary text */
-  --accent: oklch(0.30 0 0);
-  --accent-foreground: oklch(0.95 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.37 0 0);               /* #3d3d3d */
-  --input: oklch(0.32 0 0);
-  --ring: oklch(0.66 0.205 38);
-  --chart-1: oklch(0.66 0.205 38);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.20 0 0);              /* #161616 — a hair darker than bg */
-  --sidebar-foreground: oklch(0.95 0 0);
-  --sidebar-primary: oklch(0.66 0.205 38);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.27 0 0);
-  --sidebar-accent-foreground: oklch(0.95 0 0);
-  --sidebar-border: oklch(0.32 0 0);
-  --sidebar-ring: oklch(0.66 0.205 38);
+  --background: #F5F5F7;        /* lbg */
+  --foreground: #111111;        /* lp */
+  --card: #FFFFFF;              /* ls */
+  --card-foreground: #111111;
+  --popover: #FFFFFF;
+  --popover-foreground: #111111;
+  --primary: #D95B28;           /* o400 — brand accent constant across themes */
+  --primary-foreground: #FFFFFF;
+  --secondary: #F5F5F7;         /* lbg */
+  --secondary-foreground: #111111;
+  --muted: #F5F5F7;
+  --muted-foreground: #555555;  /* lsc */
+  --accent: #F5F5F7;
+  --accent-foreground: #111111;
+  --destructive: #F43F5E;
+  --border: #DDDFE3;            /* lb */
+  --input: #DDDFE3;
+  --ring: #D95B28;
+  --chart-1: #D95B28;
+  --chart-2: #3A7A65;
+  --chart-3: #A33D14;
+  --chart-4: #2B5A4A;
+  --chart-5: #555555;
+  --radius: 0px;                /* sharp corners only — §5, hard rule 2 */
+  --sidebar: #F5F5F7;
+  --sidebar-foreground: #111111;
+  --sidebar-primary: #D95B28;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #FFFFFF;
+  --sidebar-accent-foreground: #111111;
+  --sidebar-border: #DDDFE3;
+  --sidebar-ring: #D95B28;
 }
 
-/* Light mode for public docs (optional override) */
-.light {
-  --background: oklch(0.99 0 0);
-  --foreground: oklch(0.13 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.13 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.13 0 0);
-  --primary: oklch(0.58 0.22 35);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.96 0 0);
-  --secondary-foreground: oklch(0.13 0 0);
-  --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.50 0 0);
-  --accent: oklch(0.96 0 0);
-  --accent-foreground: oklch(0.13 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.90 0 0);
-  --input: oklch(0.90 0 0);
-  --ring: oklch(0.58 0.22 35);
-  --sidebar: oklch(0.97 0 0);
-  --sidebar-foreground: oklch(0.13 0 0);
-  --sidebar-primary: oklch(0.58 0.22 35);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.93 0 0);
-  --sidebar-accent-foreground: oklch(0.13 0 0);
-  --sidebar-border: oklch(0.90 0 0);
-  --sidebar-ring: oklch(0.58 0.22 35);
+.dark {
+  --background: #1A1A1A;        /* dbg */
+  --foreground: #F0F0F0;        /* dh */
+  --card: #242424;              /* ds */
+  --card-foreground: #F0F0F0;
+  --popover: #242424;
+  --popover-foreground: #F0F0F0;
+  --primary: #D95B28;           /* o400 */
+  --primary-foreground: #FFFFFF; /* white mandated for AA — see §6.1 */
+  --secondary: #2E2E2E;         /* de */
+  --secondary-foreground: #F0F0F0;
+  --muted: #2E2E2E;             /* de */
+  --muted-foreground: #999999;  /* dsc — supporting copy, ~6.1:1 on dbg */
+  --accent: #2E2E2E;
+  --accent-foreground: #F0F0F0;
+  --destructive: #F43F5E;       /* error pink — validation only, never brand */
+  --border: #3D3D3D;            /* db */
+  --input: #3D3D3D;
+  --ring: #D95B28;
+  --chart-1: #D95B28;           /* o400 */
+  --chart-2: #3A7A65;           /* e400 */
+  --chart-3: #A33D14;           /* o600 */
+  --chart-4: #2B5A4A;           /* e600 */
+  --chart-5: #999999;           /* dsc */
+  --sidebar: #1A1A1A;
+  --sidebar-foreground: #F0F0F0;
+  --sidebar-primary: #D95B28;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #2E2E2E;
+  --sidebar-accent-foreground: #F0F0F0;
+  --sidebar-border: #3D3D3D;
+  --sidebar-ring: #D95B28;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    /* Default border-style is dotted (§5) — .btn-ghost is the one named
+       permanent exception (always solid), set on the class itself. */
+    border-style: dotted;
   }
   body {
     /* font-sans applied on body, where the next/font --font-sans variable lives */
     @apply bg-background text-foreground font-sans;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  /* Visible focus state on every interactive element (§11, hard rule) */
+  :focus-visible {
+    outline: 2px solid var(--color-o400);
+    outline-offset: 2px;
   }
 }
 
@@ -158,14 +213,104 @@
   letter-spacing: -0.02em;
 }
 
-/* Monospace uppercase eyebrow label */
+/* Monospace uppercase eyebrow label (§3.4, §6.2) */
 .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  font-size: 0.6875rem;
+  font-size: 10px;
   font-weight: 500;
-  color: var(--muted-foreground);
+  color: var(--color-o400);
+}
+.eyebrow-green {
+  color: var(--color-e400);
+}
+.sq {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.meta-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--color-dm);
+}
+
+/* Buttons (§6.1, §13) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 14px 24px;
+  background: var(--color-o400);
+  color: #ffffff;
+  border: 1px solid var(--color-o400);
+  border-style: solid;
+  transition: all 0.2s;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(217, 91, 40, 0.4);
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 14px 24px;
+  background: transparent;
+  color: var(--color-dbd);
+  border: 1px solid var(--color-db);
+  border-style: solid; /* named permanent exception — §5 */
+  transition: all 0.2s;
+}
+.btn-ghost:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-dh);
+  color: var(--color-dh);
+}
+.btn-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 14px 24px;
+  background: var(--color-e400);
+  border: 1px solid var(--color-e400);
+  border-style: solid;
+  color: #ffffff;
+  transition: all 0.2s;
+}
+
+/* Popup/overlay backdrop (hard rule 18) — every overlay dims + blurs the page
+   behind it. Blur is passed through a custom property so lightningcss can't
+   strip the unprefixed declaration. */
+.popup-backdrop {
+  --popup-backdrop-blur: blur(10px);
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: var(--popup-backdrop-blur);
+  backdrop-filter: var(--popup-backdrop-blur);
 }
 
 /* Signature fiery hero gradient — orange → blood-red → fade to bg */
@@ -212,24 +357,15 @@
   border: 1px dotted var(--brand-orange-fill);
 }
 
-/* Subtle elevation for cards — depth without heavy shadow */
+/* Anchor card surface (§6.4.A) — no decorative shadows, just border + 1px lift */
 .card-elevated {
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklch, var(--card) 100%, white 2%),
-    var(--card)
-  );
-  border: 1px solid color-mix(in oklch, var(--border) 100%, white 4%);
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.4),
-    0 1px 0 0 rgba(255, 255, 255, 0.03) inset;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  background: var(--card);
+  border: 1px solid var(--border);
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
 .card-elevated:hover {
-  border-color: color-mix(in oklch, var(--primary) 45%, var(--border));
-  box-shadow:
-    0 6px 20px rgba(0, 0, 0, 0.45),
-    0 0 28px -8px rgba(254, 92, 12, 0.28);
+  border-color: var(--primary);
+  transform: translateY(-1px);
 }
 
 /* Faint grid texture for empty/hero areas */
@@ -240,7 +376,7 @@
   background-size: 32px 32px;
 }
 
-/* Public documentation matches the GitBook reading experience: Inter throughout */
+/* Public documentation uses Geist throughout (§3.1 — interface/body voice) */
 .docs-root {
   font-family: var(--font-docs);
 }

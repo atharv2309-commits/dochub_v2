@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "onThisPage": "이 페이지에서",
+    "toggleNavigation": "탐색 전환",
+    "previous": "이전의",
+    "next": "다음"
+  },
+  "sidebar": {
+    "collapse": "사이드바 접기",
+    "expand": "사이드바 확장",
+    "noPages": "아직 페이지가 없습니다.",
+    "poweredBy": "DocHub에서 제공"
+  },
+  "search": {
+    "shortPlaceholder": "찾다…",
+    "placeholder": "문서를 검색하거나 질문하세요…",
+    "askAi": "AI에게 물어보세요",
+    "startTyping": "검색하려면 입력을 시작하세요.",
+    "backToSearch": "검색으로 돌아가기",
+    "aiAnswer": "AI 답변",
+    "error": "문제가 발생했습니다. 다시 시도해 주세요.",
+    "followupPlaceholder": "후속 조치를 요청하세요…",
+    "stop": "멈추다",
+    "send": "보내다"
+  },
+  "theme": {
+    "toLight": "조명 모드로 전환",
+    "toDark": "어두운 모드로 전환"
+  },
+  "language": {
+    "change": "언어 변경",
+    "switching": "전환 중…"
+  },
+  "code": {
+    "copy": "코드 복사",
+    "copied": "복사됨"
+  },
+  "pdf": {
+    "label": "PDF 다운로드",
+    "preparing": "준비 중…"
+  },
+  "content": {
+    "empty": "이 페이지에는 아직 콘텐츠가 없습니다."
+  },
+  "translation": {
+    "untranslated": "이 페이지는 아직 번역되지 않았습니다. 영어 원본이 표시됩니다.",
+    "outdated": "이 번역은 오래되었습니다. 업데이트되는 동안 마지막 번역 버전이 표시됩니다."
+  },
+  "mcp": {
+    "copy": "복사",
+    "ariaLabel": "AI 에이전트 연결",
+    "live": "살다",
+    "title": "AI 에이전트 연결",
+    "description": "Claude, Cursor, VS Code와 같은 AI 도구가 이러한 문서를 직접 읽을 수 있도록 하세요.",
+    "connectInSeconds": "몇 초 만에 연결",
+    "footer": "게시된 문서에 대한 읽기 전용 액세스입니다.",
+    "toolSearchLabel": "찾다",
+    "toolSearchDesc": "게시된 문서 전체에서 전체 텍스트 검색.",
+    "toolReadLabel": "읽다",
+    "toolReadDesc": "페이지의 전체 콘텐츠를 마크다운으로 가져옵니다.",
+    "toolBrowseLabel": "먹다",
+    "toolBrowseDesc": "프로젝트의 페이지 트리를 나열합니다.",
+    "hintClaudeCode": "이 MCP 서버를 Claude Code에 추가하세요.",
+    "hintClaudeDesktop": "이 MCP 서버를 Claude Desktop의 구성에 추가하십시오.",
+    "hintCursor": "이 MCP 서버를 Cursor의 구성에 추가하십시오.",
+    "hintVscode": "이 MCP 서버를 VS Code의 구성에 추가합니다.",
+    "hintUrl": "MCP 호환 클라이언트에 이 URL을 사용하세요."
+  }
+}

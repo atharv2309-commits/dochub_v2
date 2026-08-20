@@ -52,7 +52,8 @@ function parseInline(raw: string): Inline[] {
     if (m[1]) {
       // link
       const label = m[2]
-      let href = m[3].trim()
+      // CommonMark's <...> destination form (needed for URLs with spaces).
+      let href = m[3].trim().replace(/^<|>$/g, '')
       // GitBook internal links point to ".md" files — strip the extension.
       href = href.replace(/\.md(#.*)?$/, '$1')
       out.push({
@@ -121,12 +122,37 @@ const HINT_TYPE_MAP: Record<string, string> = {
 
 export interface ConvertResult {
   title: string
+  description: string
   blocks: Block[]
+}
+
+// Strip a leading GitBook YAML frontmatter block (---\n...\n---) and pull out
+// its `description` (the only field GitBook exports that we use), whether
+// single-line or a folded block scalar (`>-`).
+function stripFrontmatter(md: string): { md: string; description: string } {
+  const m = md.match(/^---\n([\s\S]*?)\n---\n?/)
+  if (!m) return { md, description: '' }
+  const body = m[1]
+  const rest = md.slice(m[0].length)
+  const single = body.match(/^description:\s*(.+)$/m)
+  if (single) return { md: rest, description: decodeEntities(single[1].trim()) }
+  const folded = body.match(/^description:\s*>-?\n((?:[ \t]+.+\n?)+)/m)
+  if (folded) {
+    const text = folded[1]
+      .split('\n')
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .join(' ')
+    return { md: rest, description: decodeEntities(text) }
+  }
+  return { md: rest, description: '' }
 }
 
 export function markdownToBlocks(markdown: string): ConvertResult {
   // Normalize line endings and drop GitBook's machine preamble + agent footer.
   let md = markdown.replace(/\r\n/g, '\n')
+  const fm = stripFrontmatter(md)
+  md = fm.md
   // Remove leading "> For the complete documentation index..." note.
   md = md.replace(/^>\s*For the complete documentation index[^\n]*\n+/, '')
   // Drop the trailing "# Agent Instructions" GitBook section if present.
@@ -141,7 +167,7 @@ export function markdownToBlocks(markdown: string): ConvertResult {
   let i = 0
 
   while (i < lines.length) {
-    let line = lines[i]
+    const line = lines[i]
 
     // Blank line
     if (line.trim() === '') {
@@ -199,6 +225,42 @@ export function markdownToBlocks(markdown: string): ConvertResult {
       continue
     }
 
+    // GitBook tabs -> flattened sequential sections (BlockNote has no tab
+    // widget; each {% tab title="X" %} becomes a heading, content follows
+    // inline in reading order — no data lost, just no click-to-switch UI).
+    if (/^\{%\s*(end)?tabs\s*%\}/.test(line)) {
+      i++
+      continue
+    }
+    const tab = line.match(/^\{%\s*tab\s+title="([^"]*)"\s*%\}/)
+    if (tab) {
+      blocks.push(makeBlock('heading', parseInline(tab[1].trim()), { level: 4 }))
+      i++
+      continue
+    }
+    if (/^\{%\s*endtab\s*%\}/.test(line)) {
+      i++
+      continue
+    }
+
+    // GitBook content-ref -> a plain link paragraph to the referenced page.
+    const contentRef = line.match(/^\{%\s*content-ref\s+url="([^"]+)"\s*%\}/)
+    if (contentRef) {
+      const url = contentRef[1]
+      const inner: string[] = []
+      i++
+      while (i < lines.length && !lines[i].includes('{% endcontent-ref %}')) {
+        inner.push(lines[i])
+        i++
+      }
+      i++ // skip endcontent-ref
+      const raw = inner.join(' ').trim()
+      const linkMatch = raw.match(/^\[([^\]]*)\]\(([^)]*)\)$/)
+      const label = linkMatch ? linkMatch[1] : raw || url
+      blocks.push(makeBlock('paragraph', parseInline(`[${label}](${url})`)))
+      continue
+    }
+
     // GitBook embed -> embed block (responsive iframe for YouTube/Vimeo/etc.)
     const embed = line.match(/^\{%\s*embed\s+url="([^"]+)"\s*%\}/)
     if (embed) {
@@ -245,7 +307,8 @@ export function markdownToBlocks(markdown: string): ConvertResult {
     const mdImg = line.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/)
     if (mdImg) {
       const alt = decodeEntities(mdImg[1].trim())
-      const src = mdImg[2].trim()
+      // CommonMark's <...> destination form (needed for URLs with spaces).
+      const src = mdImg[2].trim().replace(/^<|>$/g, '')
       const fileRef = src.match(/^\/files\/([A-Za-z0-9_-]+)/)
       const url = fileRef ? `gitbook-file:${fileRef[1]}` : src
       blocks.push(makeImageBlock(url, alt))
@@ -304,5 +367,5 @@ export function markdownToBlocks(markdown: string): ConvertResult {
     blocks.push(makeBlock('paragraph', parseInline(para.join(' ').trim())))
   }
 
-  return { title: title || 'Untitled', blocks }
+  return { title: title || 'Untitled', description: fm.description, blocks }
 }

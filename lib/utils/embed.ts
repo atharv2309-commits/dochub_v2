@@ -2,7 +2,7 @@
 // Returns null for URLs we don't know how to embed (caller can fall back to a link).
 export function toEmbedUrl(rawUrl: string): { src: string; provider: string } | null {
   if (!rawUrl) return null
-  let url = rawUrl.trim().replace(/^<|>$/g, '')
+  const url = rawUrl.trim().replace(/^<|>$/g, '')
 
   try {
     const u = new URL(url)
